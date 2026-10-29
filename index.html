@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Price List — Oct 27, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --card: #fafaf8;
+    --border: #e8e6e0;
+    --text: #1a1814;
+    --muted: #8a8680;
+    --accent: #c8410a;
+    --accent2: #1a6b3c;
+    --accent3: #1a3a6b;
+    --gold: #b08a1a;
+    --ink: #2a2520;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Paper texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ---- TICKER ---- */
+  .ticker-wrap {
+    background: var(--accent);
+    padding: 7px 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+  }
+  .ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 40s linear infinite;
+  }
+  .ticker span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    padding: 0 32px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .ticker span::before { content: '✦ '; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---- HEADER ---- */
+  header {
+    position: relative;
+    z-index: 5;
+    background: var(--surface);
+    border-bottom: 2px solid var(--ink);
+    padding: 36px 24px 28px;
+    text-align: center;
+  }
+  .header-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 14vw, 120px);
+    line-height: 0.85;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .header-title span { color: var(--accent); }
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+  .meta-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+  }
+  .meta-tag.accent { border-color: var(--accent); color: var(--accent); }
+  .date-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  /* ---- FILTER BAR ---- */
+  .filter-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(245,244,240,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1.5px solid var(--border);
+    padding: 10px 16px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .filter-btn:hover { border-color: var(--ink); color: var(--ink); }
+  .filter-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  /* ---- MAIN ---- */
+  main {
+    position: relative;
+    z-index: 5;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 16px 80px;
+  }
+
+  /* ---- BRAND SECTION ---- */
+  .brand-section {
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .brand-section.visible { opacity: 1; transform: translateY(0); }
+
+  .brand-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 10px;
+    margin-bottom: 22px;
+  }
+  .brand-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .brand-name span { color: var(--b-accent, var(--accent)); }
+  .brand-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 4px;
+  }
+  .brand-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  /* ---- SUB-LABEL ---- */
+  .sub-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 20px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sub-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ---- PRODUCT GRID ---- */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+  }
+
+  /* ---- CARD ---- */
+  .product-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    padding: 16px 16px 14px;
+    position: relative;
+    cursor: default;
+    transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+  }
+  .product-card:hover {
+    border-color: var(--b-accent, var(--accent));
+    box-shadow: 3px 3px 0 var(--b-accent, var(--accent));
+    transform: translate(-1px, -1px);
+  }
+  .product-card.featured {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, #fffdf5, #fff);
+  }
+  .product-card.featured:hover {
+    box-shadow: 3px 3px 0 var(--gold);
+    border-color: var(--gold);
+  }
+  .product-card.no-price {
+    opacity: 0.55;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .product-name {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.25;
+    flex: 1;
+  }
+
+  .badge {
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+  .badge-new  { background: #fff3ee; color: var(--accent); border: 1px solid #ffd0be; }
+  .badge-tba  { background: #f5f5f5; color: var(--muted); border: 1px solid var(--border); }
+  .badge-5g   { background: #eef6ff; color: var(--accent3); border: 1px solid #b8d4f5; }
+  .badge-tab  { background: #eefaf3; color: var(--accent2); border: 1px solid #b8e8cc; }
+
+  .product-spec {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .product-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.03em;
+    color: var(--b-accent, var(--accent));
+    line-height: 1;
+  }
+  .product-card.featured .product-price { color: var(--gold); }
+  .product-card.no-price .product-price {
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .price-pkr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-top: 1px;
+  }
+
+  /* ---- SCROLL TOP ---- */
+  .scroll-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 42px;
+    height: 42px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 100;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.2s ease;
+    box-shadow: 3px 3px 0 var(--accent);
+  }
+  .scroll-top.show { opacity: 1; transform: translateY(0); }
+  .scroll-top:hover { background: var(--accent); box-shadow: 3px 3px 0 var(--ink); }
+
+  /* ---- FOOTER ---- */
+  footer {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 28px 20px;
+    border-top: 2px solid var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    background: var(--surface);
+  }
+
+  @media (max-width: 480px) {
+    .product-grid { grid-template-columns: 1fr 1fr; }
+    .brand-name { font-size: 38px; }
+    .filter-btn { font-size: 10px; padding: 5px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Ticker -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>Mobile Price List</span>
+    <span>Oct 27, 2026</span>
+    <span>Xiaomi / Redmi</span>
+    <span>Samsung</span>
+    <span>Vivo</span>
+    <span>Realme</span>
+    <span>OPPO</span>
+    <span>Tecno</span>
+    <span>Infinix</span>
+    <span>Honor</span>
+    <span>Motorola</span>
+    <span>Nokia</span>
+    <span>ZTE</span>
+    <span>Itel</span>
+    <span>Dcode</span>
+    <span>Vgotel</span>
+    <span>Prices subject to change</span>
+    <span>Mobile Price List</span>
+    <span>Oct 27, 2026</span>
+    <span>Xiaomi / Redmi</span>
+    <span>Samsung</span>
+    <span>Vivo</span>
+    <span>Realme</span>
+    <span>OPPO</span>
+    <span>Tecno</span>
+    <span>Infinix</span>
+    <span>Honor</span>
+    <span>Motorola</span>
+    <span>Nokia</span>
+    <span>ZTE</span>
+    <span>Itel</span>
+    <span>Dcode</span>
+    <span>Vgotel</span>
+    <span>Prices subject to change</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="header-eyebrow">Official Price List · Pakistan</div>
+  <div class="header-title">Mobile<br><span>Phones</span></div>
+  <div class="header-meta">
+    <div class="meta-tag accent">Best Prices</div>
+    <div class="meta-tag">All Brands</div>
+    <div class="meta-tag">PTA Stock</div>
+  </div>
+  <div class="date-line">Tuesday, 27 October 2026 · All prices in PKR</div>
+</header>
+
+<!-- Filter Bar -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterBrand('all', this)">All</button>
+  <button class="filter-btn" onclick="filterBrand('xiaomi', this)">Xiaomi</button>
+  <button class="filter-btn" onclick="filterBrand('samsung', this)">Samsung</button>
+  <button class="filter-btn" onclick="filterBrand('vivo', this)">Vivo</button>
+  <button class="filter-btn" onclick="filterBrand('realme', this)">Realme</button>
+  <button class="filter-btn" onclick="filterBrand('oppo', this)">OPPO</button>
+  <button class="filter-btn" onclick="filterBrand('tecno', this)">Tecno</button>
+  <button class="filter-btn" onclick="filterBrand('infinix', this)">Infinix</button>
+  <button class="filter-btn" onclick="filterBrand('honor', this)">Honor</button>
+  <button class="filter-btn" onclick="filterBrand('other', this)">Other</button>
+</div>
+
+<main>
+
+  <!-- ===== XIAOMI / REDMI ===== -->
+  <div class="brand-section" data-brand="xiaomi" style="--b-accent:#ff6900;">
+    <div class="brand-header">
+      <div class="brand-name">Redmi <span>&</span> Xiaomi</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">Phones + Tablets</div>
+    </div>
+
+    <div class="sub-label">Redmi Entry & Mid Range</div>
+    <div class="product-grid">
+      <div class="product-card no-price" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi A5</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi A5</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi A7 Pro</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">36,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi A7 Pro</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">44,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi 15C</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">45,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi 15C</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">50,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi 15</div></div>
+        <div class="product-spec">8GB / 128GB</div>
+        <div class="product-price">55,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Poco C85</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">52,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+
+    <div class="sub-label">Redmi Note Series</div>
+    <div class="product-grid">
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Note 14 Pro</div><span class="badge badge-new">Hot</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">76,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Note 14 Pro</div><span class="badge badge-new">Hot</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">92,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Note 15</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">8GB / 128GB</div>
+        <div class="product-price">71,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Note 15</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">75,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Note 15 Pro</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">93,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Note 15 Pro</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">111,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Note 15 Pro+ 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">164,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+
+    <div class="sub-label">Xiaomi Flagship</div>
+    <div class="product-grid">
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Xiaomi 17T</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">224,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Xiaomi 17T Pro</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">271,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Xiaomi 17 Ultra</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">481,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+
+    <div class="sub-label">Redmi Pad 2 — Tablets</div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi Pad 2</div><span class="badge badge-tab">WiFi</span></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">56,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi Pad 2</div><span class="badge badge-tab">WiFi</span></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">60,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi Pad 2</div><span class="badge badge-tab">4G</span></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">65,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi Pad 2</div><span class="badge badge-tab">WiFi</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">71,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#ff6900;">
+        <div class="card-top"><div class="product-name">Redmi Pad 2</div><span class="badge badge-tab">4G</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">79,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TECNO ===== -->
+  <div class="brand-section" data-brand="tecno" style="--b-accent:#0077b6;">
+    <div class="brand-header">
+      <div class="brand-name">Tecno</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">Spark · Pova · Camon</div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#0077b6;">
+        <div class="card-top"><div class="product-name">Spark Go 3</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">40,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#0077b6;">
+        <div class="card-top"><div class="product-name">Spark Go 3</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">47,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#0077b6;">
+        <div class="card-top"><div class="product-name">Spark 40 Pro+</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">73,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#0077b6;">
+        <div class="card-top"><div class="product-name">Spark 50</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">60,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#0077b6;">
+        <div class="card-top"><div class="product-name">Spark 50 Pro</div></div>
+        <div class="product-spec">8GB / 128GB</div>
+        <div class="product-price">72,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Pova 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">96,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#0077b6;">
+        <div class="card-top"><div class="product-name">Camon 50</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">94,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#0077b6;">
+        <div class="card-top"><div class="product-name">Camon 50 Pro</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">104,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Camon 50 Ultra</div><span class="badge badge-new">Ultra</span></div>
+        <div class="product-spec">12GB / 256GB</div>
+        <div class="product-price">123,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== INFINIX ===== -->
+  <div class="brand-section" data-brand="infinix" style="--b-accent:#e63946;">
+    <div class="brand-header">
+      <div class="brand-name">Infinix</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">Smart · Hot · Note · GT</div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#e63946;">
+        <div class="card-top"><div class="product-name">Smart 20</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">41,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#e63946;">
+        <div class="card-top"><div class="product-name">Smart 20</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">49,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#e63946;">
+        <div class="card-top"><div class="product-name">Hot 60i</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">56,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#e63946;">
+        <div class="card-top"><div class="product-name">Hot 60 Pro</div></div>
+        <div class="product-spec">8GB / 128GB</div>
+        <div class="product-price">70,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#e63946;">
+        <div class="card-top"><div class="product-name">Hot 70</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">65,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Hot 70 Pro 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">8GB / 128GB</div>
+        <div class="product-price">85,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#e63946;">
+        <div class="card-top"><div class="product-name">Note Edge</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">95,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#e63946;">
+        <div class="card-top"><div class="product-name">Note 60</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">105,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#e63946;">
+        <div class="card-top"><div class="product-name">Note 60 Pro</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">120,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">GT 50 Pro</div><span class="badge badge-new">Pro</span></div>
+        <div class="product-spec">12GB / 256GB</div>
+        <div class="product-price">162,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HONOR ===== -->
+  <div class="brand-section" data-brand="honor" style="--b-accent:#c0392b;">
+    <div class="brand-header">
+      <div class="brand-name">Honor</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">Choice · Play · X · Series</div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#c0392b;">
+        <div class="card-top"><div class="product-name">Choice T10</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">32,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#c0392b;">
+        <div class="card-top"><div class="product-name">Play 20c</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">39,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#c0392b;">
+        <div class="card-top"><div class="product-name">X5c</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">34,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#c0392b;">
+        <div class="card-top"><div class="product-name">X5c Plus</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">39,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#c0392b;">
+        <div class="card-top"><div class="product-name">X6c</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">48,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#c0392b;">
+        <div class="card-top"><div class="product-name">X6c</div></div>
+        <div class="product-spec">6GB / 256GB</div>
+        <div class="product-price">53,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#c0392b;">
+        <div class="card-top"><div class="product-name">X8d</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">79,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">X9D</div><span class="badge badge-new">Pro</span></div>
+        <div class="product-spec">12GB / 256GB</div>
+        <div class="product-price">143,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SAMSUNG ===== -->
+  <div class="brand-section" data-brand="samsung" style="--b-accent:#1428a0;">
+    <div class="brand-header">
+      <div class="brand-name">Samsung</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">A Series · Galaxy</div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card no-price" style="--b-accent:#1428a0;">
+        <div class="card-top"><div class="product-name">Galaxy A06</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card" style="--b-accent:#1428a0;">
+        <div class="card-top"><div class="product-name">Galaxy A07</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">38,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1428a0;">
+        <div class="card-top"><div class="product-name">Galaxy A07</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">44,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1428a0;">
+        <div class="card-top"><div class="product-name">Galaxy A07</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">53,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1428a0;">
+        <div class="card-top"><div class="product-name">Galaxy A17</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">67,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1428a0;">
+        <div class="card-top"><div class="product-name">Galaxy A17</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">78,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#1428a0;">
+        <div class="card-top"><div class="product-name">Galaxy A26</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card" style="--b-accent:#1428a0;">
+        <div class="card-top"><div class="product-name">Galaxy A27</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">114,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Galaxy A37</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">136,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#1428a0;">
+        <div class="card-top"><div class="product-name">Galaxy A56</div><span class="badge badge-tba">Pink</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Galaxy A57</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">150,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Galaxy A57</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">12GB / 256GB</div>
+        <div class="product-price">178,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Galaxy A57</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">204,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIVO ===== -->
+  <div class="brand-section" data-brand="vivo" style="--b-accent:#415fff;">
+    <div class="brand-header">
+      <div class="brand-name">Vivo</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">Y · V · X Series</div>
+    </div>
+
+    <div class="sub-label">Y Series</div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#415fff;">
+        <div class="card-top"><div class="product-name">Y05e</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">38,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#415fff;">
+        <div class="card-top"><div class="product-name">Y05</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">42,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#415fff;">
+        <div class="card-top"><div class="product-name">Y05</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">48,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#415fff;">
+        <div class="card-top"><div class="product-name">Y11d</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Y11d</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">63,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Y31d</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">68,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Y31d</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">8GB / 128GB</div>
+        <div class="product-price">75,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Y31d</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">86,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#415fff;">
+        <div class="card-top"><div class="product-name">Y500</div></div>
+        <div class="product-spec">8GB / 128GB</div>
+        <div class="product-price">90,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#415fff;">
+        <div class="card-top"><div class="product-name">Y500</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">99,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+
+    <div class="sub-label">V & X Series</div>
+    <div class="product-grid">
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">V70 FE</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">120,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">V70 FE</div><span class="badge badge-new">New</span></div>
+        <div class="product-spec">12GB / 256GB</div>
+        <div class="product-price">138,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#415fff;">
+        <div class="card-top"><div class="product-name">V70</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#415fff;">
+        <div class="card-top"><div class="product-name">V70</div></div>
+        <div class="product-spec">12GB / 256GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#415fff;">
+        <div class="card-top"><div class="product-name">V70</div></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">V80 Lite 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">8GB / 128GB</div>
+        <div class="product-price">112,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">V80 Lite 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">131,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">X300 FE</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 256GB</div>
+        <div class="product-price">250,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#415fff;">
+        <div class="card-top"><div class="product-name">X Fold 5</div><span class="badge badge-tba">Fold</span></div>
+        <div class="product-spec">16GB / 512GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== REALME ===== -->
+  <div class="brand-section" data-brand="realme" style="--b-accent:#f5a623;">
+    <div class="brand-header">
+      <div class="brand-name">Realme</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">Note · C · Pro Series</div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">Note 60X</div></div>
+        <div class="product-spec">3GB / 64GB</div>
+        <div class="product-price">31,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">Note 60X</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">35,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">Note 60</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">43,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">Note 70</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">Note 70</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">C100i</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">40,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">C100i</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">49,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">C100</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">58,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">C100x</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">62,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">C100x</div></div>
+        <div class="product-spec">8GB / 128GB</div>
+        <div class="product-price">71,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">C100</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">84,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">C71</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">15T 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#f5a623;">
+        <div class="card-top"><div class="product-name">15 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">15 Pro 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">144,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">16 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">118,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== OPPO ===== -->
+  <div class="brand-section" data-brand="oppo" style="--b-accent:#1a7a4a;">
+    <div class="brand-header">
+      <div class="brand-name">OPPO</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">A Series · Reno</div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#1a7a4a;">
+        <div class="card-top"><div class="product-name">A6c</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">44,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1a7a4a;">
+        <div class="card-top"><div class="product-name">A6c</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">55,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1a7a4a;">
+        <div class="card-top"><div class="product-name">A6K</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">55,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1a7a4a;">
+        <div class="card-top"><div class="product-name">A6K</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">67,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1a7a4a;">
+        <div class="card-top"><div class="product-name">A6K</div></div>
+        <div class="product-spec">8GB / 128GB</div>
+        <div class="product-price">69,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1a7a4a;">
+        <div class="card-top"><div class="product-name">A6</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">85,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1a7a4a;">
+        <div class="card-top"><div class="product-name">A6s</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">94,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#1a7a4a;">
+        <div class="card-top"><div class="product-name">A6s Pro</div></div>
+        <div class="product-price">106,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Reno 15 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 256GB</div>
+        <div class="product-price">162,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Reno 15 Pro</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">231,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Reno 16F 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">140,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Reno 16 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 512GB</div>
+        <div class="product-price">182,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== OTHER BRANDS ===== -->
+  <div class="brand-section" data-brand="other" style="--b-accent:#6b7280;">
+    <div class="brand-header">
+      <div class="brand-name">Motorola</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">G · Edge Series</div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#6b7280;">
+        <div class="card-top"><div class="product-name">Moto G37 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">58,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#6b7280;">
+        <div class="card-top"><div class="product-name">Moto G77 5G</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">91,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card featured">
+        <div class="card-top"><div class="product-name">Edge 70 Fusion</div><span class="badge badge-5g">5G</span></div>
+        <div class="product-spec">12GB / 256GB</div>
+        <div class="product-price">133,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-section" data-brand="other" style="--b-accent:#374151;">
+    <div class="brand-header">
+      <div class="brand-name">Dcode</div>
+      <div class="brand-rule"></div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Cygnal X</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">26,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Cygnal Evo</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">31,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Cygnal Prime</div></div>
+        <div class="product-spec">6GB / 128GB</div>
+        <div class="product-price">35,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-section" data-brand="other" style="--b-accent:#374151;">
+    <div class="brand-header">
+      <div class="brand-name">ZTE</div>
+      <div class="brand-rule"></div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">A35E</div></div>
+        <div class="product-spec">2GB / 64GB</div>
+        <div class="product-price">23,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">A36</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">29,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">A56</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">32,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">V60</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">V80 MAX</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">43,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">V80 Pro</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">48,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-section" data-brand="other" style="--b-accent:#374151;">
+    <div class="brand-header">
+      <div class="brand-name">Vgotel</div>
+      <div class="brand-rule"></div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Onyx 2</div></div>
+        <div class="product-spec">3GB / 32GB</div>
+        <div class="product-price">16,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Onyx 3</div></div>
+        <div class="product-spec">3GB / 32GB</div>
+        <div class="product-price">20,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">New 16 Pro</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">28,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">New 17</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">27,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Smart 9 Pro</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">Price TBA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ITEL -->
+  <div class="brand-section" data-brand="other" style="--b-accent:#374151;">
+    <div class="brand-header">
+      <div class="brand-name">Itel</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">Smartphones & Bar Phones</div>
+    </div>
+    <div class="sub-label">Smartphones</div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">A50C</div></div>
+        <div class="product-spec">2GB / 64GB</div>
+        <div class="product-price">24,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">A100c</div></div>
+        <div class="product-spec">2GB / 64GB</div>
+        <div class="product-price">25,300</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">A100C</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">31,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">A100C</div></div>
+        <div class="product-spec">3GB / 128GB</div>
+        <div class="product-price">29,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">A100</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">35,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">A200+</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">33,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">City 200</div></div>
+        <div class="product-spec">4GB / 128GB</div>
+        <div class="product-price">37,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Super 26 Ultra</div></div>
+        <div class="product-spec">8GB / 256GB</div>
+        <div class="product-price">61,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+    <div class="sub-label">Villaon & Feature Phones</div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Villaon V50s</div></div>
+        <div class="product-spec">4GB / 64GB</div>
+        <div class="product-price">25,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Itel 2165</div><span class="badge badge-tba">Bar</span></div>
+        <div class="product-price">3,700</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Itel 2165 Pro</div><span class="badge badge-tba">Bar</span></div>
+        <div class="product-price">4,100</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Itel 2166</div><span class="badge badge-tba">Bar</span></div>
+        <div class="product-price">4,200</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Itel 2181</div><span class="badge badge-tba">Bar</span></div>
+        <div class="product-price">4,300</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">Muzik 400 Pro</div><span class="badge badge-tba">Bar</span></div>
+        <div class="product-price">5,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#374151;">
+        <div class="card-top"><div class="product-name">R60+ 4G</div></div>
+        <div class="product-price">6,000</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOKIA -->
+  <div class="brand-section" data-brand="other" style="--b-accent:#005AFF;">
+    <div class="brand-header">
+      <div class="brand-name">Nokia</div>
+      <div class="brand-rule"></div>
+      <div class="brand-count">Classic & Feature Phones</div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">105 Power</div></div>
+        <div class="product-price">4,700</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">105 Pur</div></div>
+        <div class="product-price">4,300</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">105 Classic</div></div>
+        <div class="product-price">4,600</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">106 HMB</div></div>
+        <div class="product-price">4,750</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">Nokia 106</div></div>
+        <div class="product-price">5,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">Nokia 108</div></div>
+        <div class="product-price">5,800</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">Nokia 110</div></div>
+        <div class="product-price">6,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">Nokia 125</div></div>
+        <div class="product-price">6,800</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">Nokia 130</div></div>
+        <div class="product-price">7,500</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">130 Music</div></div>
+        <div class="product-price">7,700</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">150 Music</div></div>
+        <div class="product-price">7,800</div>
+        <span class="price-pkr">PKR</span>
+      </div>
+      <div class="product-card no-price" style="--b-accent:#005AFF;">
+        <div class="card-top"><div class="product-name">HMB Barbie</div></div>
+        <div class="product-price">Price TBA</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  All prices in PKR · Stock subject to availability · Prices may change without notice · Tuesday 27 Oct 2026
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 400);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.04 });
+  document.querySelectorAll('.brand-section').forEach(s => observer.observe(s));
+
+  function filterBrand(brand, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.brand-section').forEach(section => {
+      section.style.display = (brand === 'all' || section.dataset.brand === brand) ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
