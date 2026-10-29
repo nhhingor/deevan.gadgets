@@ -329,12 +329,73 @@
   .scroll-top:hover { background: var(--accent); box-shadow: 3px 3px 0 var(--ink); }
 
   /* ---- FOOTER ---- */
+  .contact-bar {
+    position: relative;
+    z-index: 5;
+    background: var(--ink);
+    color: #fff;
+    padding: 32px 20px;
+    text-align: center;
+  }
+  .contact-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.08em;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .contact-store {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .contact-details {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #d1cdc8;
+  }
+  .contact-item a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .contact-item a:hover { color: var(--accent); }
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    background: #25d366;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 2px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: background 0.18s;
+  }
+  .wa-btn:hover { background: #1ebe5d; }
+
   footer {
     position: relative;
     z-index: 5;
     text-align: center;
-    padding: 28px 20px;
-    border-top: 2px solid var(--ink);
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
     font-family: 'JetBrains Mono', monospace;
     font-size: 9px;
     letter-spacing: 0.12em;
